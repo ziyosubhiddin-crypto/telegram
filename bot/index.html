@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word dan PDF ga Aylantirish - Bepul & Xavfsiz</title>
+  <meta name="description" content="Word (.docx, .doc) fayllarini bepul, xavfsiz va yuqori sifatda PDF formatiga aylantiring. Hech qanday serverga yuklanmaydi.">
+  
+  <!-- Modern Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Application Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Glowing Background Elements -->
+  <div class="ambient-glow">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="#" class="brand" id="brandLogo">
+        <div class="brand-icon-wrapper">
+          <span class="brand-icon">📄</span>
+        </div>
+        <div class="brand-text">Word<span>2</span>PDF</div>
+      </a>
+
+      <div class="nav-actions">
+        <div class="badge-offline">
+          <span class="badge-pulse"></span>
+          <span>100% Xavfsiz / Offline</span>
+        </div>
+
+        <!-- Language Selector -->
+        <select id="langSelect" class="custom-select" style="padding: 7px 12px; width: auto; font-size: 0.85rem;">
+          <option value="uz">🇺🇿 O'zbekcha</option>
+          <option value="ru">🇷🇺 Русский</option>
+          <option value="en">🇬🇧 English</option>
+        </select>
+
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" class="btn-icon" aria-label="Mavzuni almashtirish">☀️</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-pill" data-i18n="heroPill">⚡ 100% Xavfsiz & Mahalliy (Brauzer ichida)</div>
+      <h1 class="hero-title" data-i18n="heroTitle">
+        Word hujjatlarini <span class="gradient-text">PDF</span> formatiga aylantiring
+      </h1>
+      <p class="hero-subtitle" data-i18n="heroSubtitle">
+        Hech qanday serverga yuklanmaydi, hujjatlaringiz maxfiy va faqat kompyuteringizda soniyalar ichida yuqori sifatli PDF ga aylanadi.
+      </p>
+    </section>
+
+    <!-- Converter Section -->
+    <section class="converter-section">
+      <div class="converter-card">
+        
+        <!-- Dropzone Area -->
+        <div class="dropzone" id="dropzone">
+          <input type="file" id="fileInput" accept=".docx,.doc,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" style="display: none;">
+          <div class="dropzone-inner">
+            <div class="upload-icon-box">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <h2 class="dropzone-title" data-i18n="dropTitle">Word faylini shu yerga tashlang</h2>
+            <p class="dropzone-desc" data-i18n="dropDesc">yoki kompyuterdan tanlash uchun bosing (.docx, .doc)</p>
+            <div class="file-tags">
+              <span class="file-tag">.DOCX</span>
+              <span class="file-tag">.DOC</span>
+              <span class="file-tag">Cheklovsiz hajm</span>
+            </div>
+            <button type="button" class="btn-browse" data-i18n="browseBtn">
+              📁 Faylni tanlash
+            </button>
+          </div>
+        </div>
+
+        <!-- Active File Workspace -->
+        <div class="file-active-section" id="fileActiveSection">
+          
+          <!-- File Info Bar -->
+          <div class="file-info-bar">
+            <div class="file-details">
+              <div class="doc-badge-icon">W</div>
+              <div>
+                <div class="file-name" id="fileNameDisplay">hujjat.docx</div>
+                <div class="file-meta">
+                  <span id="fileSizeDisplay">0 KB</span>
+                  <span>•</span>
+                  <span style="color: var(--accent-emerald);">Tayyor</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="file-actions">
+              <button id="removeFileBtn" class="btn-secondary btn-danger" data-i18n="removeBtn">
+                ✕ Boshqa fayl tanlash
+              </button>
+            </div>
+          </div>
+
+          <!-- Configuration Settings -->
+          <div class="options-grid">
+            <div class="option-group">
+              <label class="option-label" for="pageSizeSelect">
+                <span>📐</span> <span data-i18n="optSize">Sahifa o'lchami</span>
+              </label>
+              <select id="pageSizeSelect" class="custom-select">
+                <option value="a4" selected>A4 (Standart 210 x 297 mm)</option>
+                <option value="letter">Letter (216 x 279 mm)</option>
+                <option value="a3">A3 (297 x 420 mm)</option>
+                <option value="legal">Legal (216 x 356 mm)</option>
+              </select>
+            </div>
+
+            <div class="option-group">
+              <label class="option-label" for="orientationSelect">
+                <span>🔄</span> <span data-i18n="optOrientation">Sahifa yo'nalishi</span>
+              </label>
+              <select id="orientationSelect" class="custom-select">
+                <option value="portrait" selected data-i18n="optPortrait">Vertikal (Tik)</option>
+                <option value="landscape" data-i18n="optLandscape">Gorizontal (Yotiq)</option>
+              </select>
+            </div>
+
+            <div class="option-group">
+              <label class="option-label" for="marginsSelect">
+                <span>📏</span> <span data-i18n="optMargins">Hoshiyalar</span>
+              </label>
+              <select id="marginsSelect" class="custom-select">
+                <option value="10" selected data-i18n="optMarginStd">Standart (10mm)</option>
+                <option value="5" data-i18n="optMarginNarrow">Tor (5mm)</option>
+                <option value="20" data-i18n="optMarginWide">Keng (20mm)</option>
+                <option value="0" data-i18n="optMarginNone">Hoshiyasiz (0mm)</option>
+              </select>
+            </div>
+
+            <div class="option-group">
+              <label class="option-label" for="qualitySelect">
+                <span>✨</span> <span data-i18n="optQuality">Sifat (DPI)</span>
+              </label>
+              <select id="qualitySelect" class="custom-select">
+                <option value="2" selected data-i18n="optQualityStd">Standart (Tezkor)</option>
+                <option value="3" data-i18n="optQualityHigh">Maksimal (300 DPI)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="progress-card" id="progressCard">
+            <div class="progress-header">
+              <span class="progress-status">
+                <span class="spinner"></span>
+                <span id="progressStatusText">Jarayon bajarilmoqda...</span>
+              </span>
+              <span class="progress-percentage" id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-buttons-group">
+            <button id="convertBtn" class="btn-primary" data-i18n="convertBtn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>PDF qilib yuklab olish</span>
+            </button>
+
+            <button id="vectorPrintBtn" class="btn-vector-print" title="Brauzerning o'rnatilgan chop etish oynasini ochadi va tiniq vektor PDF saqlash imkonini beradi" data-i18n="printBtn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              <span>Chop etish / Vektor PDF</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Document Preview Canvas Area -->
+        <div class="preview-container" id="previewContainer">
+          <div class="preview-header">
+            <h3 class="preview-title">
+              <span>👁️</span> <span data-i18n="previewTitle">Hujjatni oldindan ko'rish</span>
+            </h3>
+            <div class="preview-toolbar">
+              <button id="zoomOutBtn" class="btn-icon" title="Kichiklashtirish">−</button>
+              <button id="zoomResetBtn" class="btn-icon" style="width: auto; padding: 0 12px; font-size: 0.85rem;" title="Asl o'lcham">100%</button>
+              <button id="zoomInBtn" class="btn-icon" title="Kattalashtirish">+</button>
+            </div>
+          </div>
+
+          <div class="preview-canvas-wrapper">
+            <div id="documentPreview">
+              <!-- Rendered Word Document will be placed here -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Key Features / Advantage Cards -->
+    <section class="features-section">
+      <h2 class="section-title">Nega aynan ushbu dastur?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">🔒</div>
+          <h3 class="feature-title">Mutlaq Maxfiylik</h3>
+          <p class="feature-desc">Fayllar hech qanday tashqi serverga yuborilmaydi. Hujjatlaringiz 100% sizning shaxsiy kompyuteringiz xotirasida xavfsiz qayta ishlanadi.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">⚡</div>
+          <h3 class="feature-title">Cheksiz & Bepul</h3>
+          <p class="feature-desc">Fayl soni, hajmi yoki sahifalar soniga hech qanday cheklov yo'q. Istalgan vaqtda internetsiz (offline) ham ishlaydi.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">🎯</div>
+          <h3 class="feature-title">Vektor Sifat</h3>
+          <p class="feature-desc">Word matnlari, jadvallari, sarlavhalari va formatlash elementlari PDF da xiralashmasdan aniq va tiniq saqlanadi.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Word to PDF Pro • Barcha huquqlar himoyalangan. Desktop / Bot versiyasi.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Local Libraries (Loaded locally with reliable offline support) -->
+  <script src="libs/jszip.min.js"></script>
+  <script src="libs/docx-preview.min.js"></script>
+  <script src="libs/mammoth.browser.min.js"></script>
+  <script src="libs/html2pdf.bundle.min.js"></script>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
